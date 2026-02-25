@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | ZoneWise Smart Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9d5ff 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER/NAVIGATION ===== */
+        nav {
+            background-color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6a0dad;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #e6d5ff;
+            color: #6a0dad;
+            font-size: 1.05rem;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .about-hero {
+            background: linear-gradient(135deg, rgba(106, 13, 173, 0.1) 0%, rgba(233, 213, 255, 0.3) 100%);
+            padding: 5rem 10%;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            color: #6a0dad;
+            margin-bottom: 1rem;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ===== MAIN CONTENT SECTIONS ===== */
+        .section {
+            padding: 4rem 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #6a0dad;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #6a0dad;
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Our Story */
+        .our-story {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .story-content {
+            flex: 1;
+        }
+
+        .story-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 3px solid #e6d5ff;
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            color: #6a0dad;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: #666;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .member-social a {
+            color: #6a0dad;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .member-social a:hover {
+            transform: scale(1.2);
+        }
+
+        /* Values */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            color: #6a0dad;
+            margin-bottom: 1.5rem;
+        }
+
+        .value-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #444;
+        }
+
+          /* ===== FOOTER/CONTACT SECTION ===== */
+          footer {
+            background-color: #333;
+            color: #fff;
+            padding: 3rem 5%;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-column h3 {
+            color: #6a0dad;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .contact-info {
+            margin-top: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item i {
+            color: #6a0dad;
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: #ddd;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #6a0dad;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #555;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .section {
+                padding: 3rem 5%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .our-story {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-hero {
+                padding: 3rem 5%;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>ZoneWise</span>
+        </div>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="about.html" class="active">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <h1>About ZoneWise</h1>
+        <p>Discover the story behind our mission to revolutionize smart home technology with intelligent zone control</p>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="section">
+        <h2 class="section-title">Our Story</h2>
+        <div class="our-story">
+            <div class="story-content">
+                <p style="margin-bottom: 1.5rem; line-height: 1.7;">ZoneWise was founded in 2025 by a team of smart home enthusiasts who were frustrated with the limitations of existing home automation systems. We noticed that most solutions treated homes as single units rather than collections of distinct spaces with different needs.</p>
+                <p style="margin-bottom: 1.5rem; line-height: 1.7;">Our breakthrough came when we developed the first truly zone-aware smart home controller, allowing different areas of a home to operate independently while still working together as a cohesive system. Today, ZoneWise powers thousands of homes across the country, helping families live more comfortably while saving energy.</p>
+                <p style="line-height: 1.7;">What started as a passion project in a garage has grown into a leading smart home technology company, but we've never lost sight of our original vision: to create intuitive, powerful home automation that respects the unique character of every space in your home.</p>
+            </div>
+            <div class="story-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="ZoneWise team working">
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Our Values Section -->
+    <section class="section">
+        <h2 class="section-title">Our Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3 class="value-title">Innovation</h3>
+                <p>We constantly push boundaries to develop smarter, more intuitive ways to control your home environment.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3 class="value-title">Sustainability</h3>
+                <p>Our zone-based approach helps reduce energy waste without compromising comfort.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="value-title">Privacy</h3>
+                <p>Your data stays yours. We design our systems with privacy and security as top priorities.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3 class="value-title">Customer Focus</h3>
+                <p>We listen to our users and evolve our products based on real needs and feedback.</p>
+            </div>
+        </div>
+    </section>
+
+       <!-- Footer with Contact Section -->
+       <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About ZoneWise</h3>
+                <p>Revolutionizing home automation with intelligent zone control technology since 2018.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/feed/"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Information</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>123 Smart Street, Tech City, TC 10101</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 8838843044</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>support@zonewise.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Mon-Fri: 8AM - 8PM<br>Sat-Sun: 9AM - 5PM</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe for the latest smart home tips and updates.</p>
+                <form style="margin-top: 1rem;">
+                    <input type="email" placeholder="Your email address" style="width: 100%; padding: 0.8rem; border-radius: 5px; border: none; margin-bottom: 0.5rem;">
+                    <button type="submit" style="background-color: #6a0dad; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 5px; cursor: pointer; font-weight: bold;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 ZoneWise Smart Home Systems. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // Smooth scrolling for contact link
+        document.querySelector('a[href="#contact"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#contact').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

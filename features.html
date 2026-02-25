@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features | ZoneWise Smart Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9d5ff 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER/NAVIGATION ===== */
+        nav {
+            background-color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6a0dad;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #e6d5ff;
+            color: #6a0dad;
+            font-size: 1.05rem;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .features-hero {
+            background: linear-gradient(135deg, rgba(106, 13, 173, 0.1) 0%, rgba(233, 213, 255, 0.3) 100%);
+            padding: 5rem 10%;
+            text-align: center;
+        }
+
+        .features-hero h1 {
+            font-size: 3rem;
+            color: #6a0dad;
+            margin-bottom: 1rem;
+        }
+
+        .features-hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ===== MAIN CONTENT SECTIONS ===== */
+        .section {
+            padding: 4rem 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #6a0dad;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #6a0dad;
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #6a0dad;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #444;
+        }
+
+        .feature-card p {
+            color: #666;
+        }
+
+        /* Advantages List */
+        .advantages-list {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .advantage-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .advantage-icon {
+            font-size: 1.5rem;
+            color: #6a0dad;
+            margin-top: 0.3rem;
+        }
+
+        .advantage-content h3 {
+            color: #444;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Partners Grid */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .partner-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .partner-card:hover {
+            transform: scale(1.05);
+        }
+
+        .partner-card img {
+            max-width: 100%;
+            height: auto;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 2rem 5%;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #6a0dad;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .section {
+                padding: 3rem 5%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .features-hero {
+                padding: 3rem 5%;
+            }
+            
+            .features-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>ZoneWise</span>
+        </div>
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="features-hero">
+        <h1>ZoneWise Features</h1>
+        <p>Discover how our smart home system can transform your living experience with advanced zone control technology</p>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="section">
+        <h2 class="section-title">Key Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Zone-Based Lighting</h3>
+                <p>Control lights in different zones independently with customizable schedules and scenes.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-thermometer-half"></i>
+                <h3>Climate Zones</h3>
+                <p>Maintain perfect temperatures in each zone with smart climate control.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Security Zones</h3>
+                <p>Monitor and secure different areas of your home with customizable security settings.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Energy Monitoring</h3>
+                <p>Track energy usage by zone and optimize for efficiency.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-robot"></i>
+                <h3>Smart Automation</h3>
+                <p>Create complex automations that work across multiple zones.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Remote Access</h3>
+                <p>Control all zones from anywhere using our mobile app.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section class="section" style="background: linear-gradient(135deg, rgba(106, 13, 173, 0.05) 0%, rgba(233, 213, 255, 0.1) 100%);">
+        <h2 class="section-title">Why Choose ZoneWise?</h2>
+        <div class="advantages-list">
+            <div class="advantage-item">
+                <div class="advantage-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="advantage-content">
+                    <h3>Precision Control</h3>
+                    <p>Manage each area of your home independently with our advanced zone-based system.</p>
+                </div>
+            </div>
+            <div class="advantage-item">
+                <div class="advantage-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="advantage-content">
+                    <h3>Energy Savings</h3>
+                    <p>Reduce energy waste by only heating, cooling, and lighting occupied zones.</p>
+                </div>
+            </div>
+            <div class="advantage-item">
+                <div class="advantage-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="advantage-content">
+                    <h3>Enhanced Security</h3>
+                    <p>Different security protocols for different zones based on your needs.</p>
+                </div>
+            </div>
+            <div class="advantage-item">
+                <div class="advantage-icon">
+                    <i class="fas fa-random"></i>
+                </div>
+                <div class="advantage-content">
+                    <h3>Seamless Integration</h3>
+                    <p>Works with all major smart home devices and platforms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="section">
+        <h2 class="section-title">Our Partners</h2>
+        <div class="partners-grid">
+            <div class="partner-card">
+                <img src="Images/philips.webp" alt="Philips Hue">
+            </div>
+            <div class="partner-card">
+                <img src="Images/nest.png" alt="Nest">
+            </div>
+            <div class="partner-card">
+                <img src="Images/amazon alexa.jpg" alt="Amazon Alexa">
+            </div>
+            <div class="partner-card">
+                <img src="Images/Google Home.jpg" alt="Google Home">
+            </div>
+            <div class="partner-card">
+                <img src="Images/samsung smartthings.avif" alt="Samsung SmartThings">
+            </div>
+            <div class="partner-card">
+                <img src="Images/apple.png" alt="Apple">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 ZoneWise Smart Home Systems. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | SmartHome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9d5ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 2rem 0;
+        }
+
+        h1 {
+            color: #6a0dad;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: #6a0dad;
+        }
+
+        .logo span {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #6a0dad;
+        }
+
+        .container {
+            width: 700px;
+            max-width: 90%;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .container form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container form label {
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .container form input,
+        .container form textarea,
+        .container form select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .container form input:focus,
+        .container form textarea:focus {
+            border-color: #6a0dad;
+            outline: none;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .radio-group label {
+            margin-right: 1rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .container form button {
+            flex: 1;
+            padding: 0.8rem;
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .container form button:hover {
+            background-color: #5a0a9d;
+            transform: translateY(-2px);
+        }
+
+        .container form button[type="reset"] {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+
+        .container form button[type="reset"]:hover {
+            background-color: #ddd;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            color: #666;
+        }
+
+        .footer a {
+            color: #6a0dad;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <i class="fas fa-home"></i>
+        <span>SmartHome</span>
+    </div>
+    
+    <h1>Create Your Account</h1>
+    
+    <div class="container">
+        <form onsubmit="handleSubmit(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">Username (Auto-Generated if Empty):</label>
+                    <input type="text" name="username" id="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" name="name" placeholder="Enter your full name" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" name="age" placeholder="Enter your age" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" name="dob" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Gender:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="Male" required> Male</label>
+                    <label><input type="radio" name="gender" value="Female"> Female</label>
+                    <label><input type="radio" name="gender" value="Other"> Other</label>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Mobile Number:</label>
+                    <input type="tel" name="phone" placeholder="Enter your mobile number" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" name="address" placeholder="Enter your address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="about">About Yourself:</label>
+                <textarea name="about" placeholder="Tell us about yourself" rows="4" required></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="submit">Register</button>
+                <button type="reset">Clear Form</button>
+            </div>
+        </form>
+    </div>
+
+    <p class="footer">Already have an account? <a href="login.html">Login here</a></p>
+
+    <script>
+        function generateRandomNumber(prefix) {
+            return prefix + "-" + Math.floor(100000 + Math.random() * 900000);
+        }
+
+        function validAge(event) {
+            var age = document.querySelector('input[name="age"]').value;
+            if (age < 15) {
+                alert("You must be at least 15 years old to register");
+                event.preventDefault(); 
+                return false;
+            }
+            return true;
+        }
+
+        function confirmsubmission(event) {
+            var confirmation = confirm("Are you sure you want to submit the form?");
+            if (!confirmation) {
+                event.preventDefault();
+                return false;
+            } else {
+                var usernameField = document.querySelector('input[name="username"]');
+                var username = usernameField.value.trim();
+
+                if (username === "") {
+                    username = generateRandomNumber("USER");
+                    usernameField.value = username;
+                }
+
+                var regNumber = generateRandomNumber("REG");
+
+                alert("Your account details:\n\n" +
+                      "Username: " + username + "\n" +
+                      "Registration Number: " + regNumber + "\n\n" +
+                      "Thank you for registering!");
+
+                setTimeout(function() {
+                    window.location.href = "home.html"; 
+                }, 2000);
+                return true;
+            }
+        }
+
+    function handleSubmit(event) {
+    event.preventDefault(); 
+    if (!validAge(event)) return;
+    
+    if (confirmsubmission(event)) {
+        // Redirect to home page with registered flag
+        setTimeout(function() {
+            window.location.href = "home.html?registered=true"; 
+        }, 2000);
+    }
+}
+
+        function handleSubmit(event) {
+            event.preventDefault(); 
+            if (!validAge(event)) return;
+            confirmsubmission(event);
+        }
+    </script>
+</body>
+</html>

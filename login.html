@@ -1,0 +1,177 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | ZoneWise</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-image: url("Images/background.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;    
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #6a0dad;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: #6a0dad;
+        }
+
+        .logo span {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #6a0dad;
+        }
+
+        .container {
+            width: 350px;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container form label {
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .container form input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .container form input:focus {
+            border-color: #6a0dad;
+            outline: none;
+        }
+
+        /* Login Button */
+        .login-btn {
+            width: 100%;
+            padding: 12px 0;
+            margin-top: 1rem;
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #5a0a9d;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            margin-top: 2rem;
+            color: hsl(285, 45%, 79%);
+        }
+
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <i class="fas fa-map-marked-alt"></i> <!-- Changed icon to zone/map icon -->
+        <span>ZoneWise</span> <!-- Updated name -->
+    </div>
+    
+    <h1>Welcome to ZoneWise</h1> <!-- Updated welcome message -->
+    
+    <div class="container">
+        <form onsubmit="validateLogin(event)">
+            <label for="userid">User ID:</label>
+            <input type="text" id="userid" name="userid" placeholder="Enter your User ID" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+            
+            <input type="submit" value="Login" class="login-btn">
+        </form>
+    </div>
+    
+    <p class="footer">New to ZoneWise? <a href="signup.html">Create account</a></p>
+
+    <script>
+        function validateLogin(event) {
+            event.preventDefault(); 
+
+            const validUsername = "sanjay";
+            const validPassword = "1234";
+
+            let username = document.getElementById("userid").value;
+            let password = document.getElementById("password").value;
+
+            if (username === validUsername && password === validPassword) {
+                alert("Login Successful!");
+                window.location.href = "home.html";
+            } else if (username !== validUsername) {
+                alert("Invalid Username");
+            } else if (password !== validPassword) {
+                alert("Invalid Password");
+            }
+        }
+    </script>
+</body>
+</html>

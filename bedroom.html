@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedroom | ZoneWise</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f4ff;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #6a0dad;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #6a0dad;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ===== ROOM HEADER ===== */
+        .room-header {
+            padding: 2rem 5%;
+            background: linear-gradient(135deg, rgba(106, 13, 173, 0.1) 0%, rgba(233, 213, 255, 0.2) 100%);
+            text-align: center;
+        }
+
+        .room-title {
+            font-size: 2rem;
+            color: #6a0dad;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .room-subtitle {
+            color: #666;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        /* ===== NAVIGATION BAR ===== */
+        nav {
+            display: flex;
+            justify-content: center; /* <-- center the nav */
+            align-items: center;
+        }
+    
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #e6d5ff;
+            color: #6a0dad;
+            font-size: 1.05rem;
+        }
+        /* ===== DEVICE GRID ===== */
+        .device-grid {
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .device-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .device-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .device-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .device-icon {
+            color: #6a0dad;
+            font-size: 1.3rem;
+        }
+
+        /* ===== TOGGLE SWITCH ===== */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e0e0e0;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #6a0dad;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* ===== BEDROOM SPECIFIC STYLES ===== */
+        .bedroom-control {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .control-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brightness-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .brightness-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .brightness-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #6a0dad;
+            cursor: pointer;
+        }
+
+        .brightness-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #6a0dad;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .color-presets {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: #6a0dad;
+        }
+
+        .mode-select {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-top: 1rem;
+        }
+
+        .temp-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .temp-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .temp-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #6a0dad;
+            cursor: pointer;
+        }
+
+        .temp-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #6a0dad;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .alarm-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .alarm-input {
+            flex: 1;
+            padding: 0.7rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .alarm-btn {
+            background: #6a0dad;
+            color: white;
+            border: none;
+            padding: 0.7rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* ===== MEDIA QUERIES ===== */
+        @media (max-width: 768px) {
+            .device-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .room-title {
+                font-size: 1.8rem;
+            }
+            
+            .device-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="home.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+        <div class="logo">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>ZoneWise</span>
+        </div>
+    </header>
+
+    <!-- Room Header -->
+    <div class="room-header">
+        <h1 class="room-title">
+            <i class="fas fa-bed"></i>
+            Bedroom
+        </h1>
+        <p class="room-subtitle">Create the perfect sleep environment with smart bedroom controls</p>
+        <br><nav>
+            <div class="nav-links">
+                    <a href="living_room.html">Living Room</a>
+                    <a href="kitchen.html">Kitchen</a>
+                    <a href="bedroom.html">Bedroom</a>
+                    <a href="bathroom.html">Bathroom</a>
+                    <a href="garden.html">Garden</a>
+            </div>
+        </nav>
+        
+    </div>
+
+    <!-- Device Grid -->
+    <div class="device-grid">
+        <!-- Main Lights -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-lightbulb device-icon"></i>
+                    Main Lights
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked id="main-lights-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="bedroom-control">
+                <div class="control-row">
+                    <span>Brightness:</span>
+                    <span class="brightness-display" id="main-lights-brightness">75%</span>
+                </div>
+                <div class="brightness-control">
+                    <i class="fas fa-sun" style="color: #666;"></i>
+                    <input type="range" min="0" max="100" value="75" class="brightness-slider" id="main-lights-slider">
+                    <i class="fas fa-sun" style="color: #ffcc00;"></i>
+                </div>
+                <div class="color-presets">
+                    <div class="color-option active" style="background: #ffffff;" title="White"></div>
+                    <div class="color-option" style="background: #ffcc00;" title="Warm White"></div>
+                    <div class="color-option" style="background: #ff9a00;" title="Sunset"></div>
+                    <div class="color-option" style="background: #e6d5ff;" title="Lavender"></div>
+                    <div class="color-option" style="background: #4d88ff;" title="Blue"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bedside Lamp -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-lamp device-icon"></i>
+                    Bedside Lamp
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="lamp-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="bedroom-control">
+                <div class="control-row">
+                    <span>Brightness:</span>
+                    <span class="brightness-display" id="lamp-brightness">50%</span>
+                </div>
+                <div class="brightness-control">
+                    <i class="fas fa-sun" style="color: #666;"></i>
+                    <input type="range" min="0" max="100" value="50" class="brightness-slider" id="lamp-slider">
+                    <i class="fas fa-sun" style="color: #ffcc00;"></i>
+                </div>
+                <select class="mode-select">
+                    <option>Reading Mode</option>
+                    <option>Night Light</option>
+                    <option>Sleep Timer (30 min)</option>
+                    <option>Sunrise Simulation</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Smart Blinds -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-window-maximize device-icon"></i>
+                    Smart Blinds
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="blinds-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="bedroom-control">
+                <div class="control-row">
+                    <span>Position:</span>
+                    <span class="brightness-display" id="blinds-position">40%</span>
+                </div>
+                <input type="range" min="0" max="100" value="40" class="brightness-slider" id="blinds-slider">
+                <div class="control-row" style="margin-top: 1rem;">
+                    <span>Auto Schedule:</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="blinds-auto" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thermostat -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-thermometer-half device-icon"></i>
+                    Thermostat
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked id="thermostat-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="bedroom-control">
+                <div class="control-row">
+                    <span>Temperature:</span>
+                    <span class="temp-display" id="thermostat-temp">21°C</span>
+                </div>
+                <div class="temp-control">
+                    <i class="fas fa-temperature-low" style="color: #666;"></i>
+                    <input type="range" min="16" max="28" value="21" class="temp-slider" id="thermostat-slider">
+                    <i class="fas fa-temperature-high" style="color: #666;"></i>
+                </div>
+                <select class="mode-select">
+                    <option>Comfort Mode</option>
+                    <option>Sleep Mode</option>
+                    <option>Energy Saver</option>
+                    <option>Manual Control</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Smart Alarm -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-alarm-clock device-icon"></i>
+                    Smart Alarm
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked id="alarm-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="bedroom-control">
+                <div class="alarm-control">
+                    <input type="time" class="alarm-input" value="07:00" id="alarm-time">
+                    <button class="alarm-btn">Set</button>
+                </div>
+                <select class="mode-select" style="margin-top: 1rem;">
+                    <option>Gentle Wake</option>
+                    <option>Sunrise Simulation</option>
+                    <option>Standard Alarm</option>
+                    <option>Weekday Only</option>
+                </select>
+                <div class="control-row" style="margin-top: 1rem;">
+                    <span>Smart Detection:</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="alarm-smart" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- White Noise Machine -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-cloud-moon device-icon"></i>
+                    Sleep Sounds
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="noise-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="bedroom-control">
+                <select class="mode-select">
+                    <option>White Noise</option>
+                    <option>Ocean Waves</option>
+                    <option>Rainfall</option>
+                    <option>Forest Sounds</option>
+                    <option>Fan Noise</option>
+                </select>
+                <div class="control-row" style="margin-top: 1rem;">
+                    <span>Volume:</span>
+                    <span class="brightness-display" id="noise-volume">60%</span>
+                </div>
+                <input type="range" min="0" max="100" value="60" class="brightness-slider" id="noise-slider">
+                <div class="control-row" style="margin-top: 1rem;">
+                    <span>Sleep Timer:</span>
+                    <select class="alarm-input">
+                        <option>Off</option>
+                        <option>30 min</option>
+                        <option>60 min</option>
+                        <option>90 min</option>
+                        <option>Until alarm</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle switches functionality
+        document.querySelectorAll('.toggle-switch input').forEach(switchInput => {
+            switchInput.addEventListener('change', function() {
+                const deviceName = this.closest('.device-card').querySelector('.device-name').textContent.trim();
+                const status = this.checked ? 'ON' : 'OFF';
+                console.log(`${deviceName} turned ${status}`);
+            });
+        });
+
+        // Main lights controls
+        const mainLightsSlider = document.getElementById('main-lights-slider');
+        const mainLightsBrightness = document.getElementById('main-lights-brightness');
+        mainLightsSlider.addEventListener('input', function() {
+            mainLightsBrightness.textContent = this.value + '%';
+        });
+
+        // Lamp controls
+        const lampSlider = document.getElementById('lamp-slider');
+        const lampBrightness = document.getElementById('lamp-brightness');
+        lampSlider.addEventListener('input', function() {
+            lampBrightness.textContent = this.value + '%';
+        });
+
+        // Blinds controls
+        const blindsSlider = document.getElementById('blinds-slider');
+        const blindsPosition = document.getElementById('blinds-position');
+        blindsSlider.addEventListener('input', function() {
+            blindsPosition.textContent = this.value + '%';
+        });
+
+        // Thermostat controls
+        const thermostatSlider = document.getElementById('thermostat-slider');
+        const thermostatTemp = document.getElementById('thermostat-temp');
+        thermostatSlider.addEventListener('input', function() {
+            thermostatTemp.textContent = this.value + '°C';
+        });
+
+        // Alarm controls
+        const alarmSetBtn = document.querySelector('.alarm-btn');
+        alarmSetBtn.addEventListener('click', function() {
+            const alarmTime = document.getElementById('alarm-time').value;
+            console.log(`Alarm set for ${alarmTime}`);
+            alert(`Alarm set for ${alarmTime}`);
+        });
+
+        // White noise controls
+        const noiseSlider = document.getElementById('noise-slider');
+        const noiseVolume = document.getElementById('noise-volume');
+        noiseSlider.addEventListener('input', function() {
+            noiseVolume.textContent = this.value + '%';
+        });
+
+        // Color presets selection
+        document.querySelectorAll('.color-option').forEach(color => {
+            color.addEventListener('click', function() {
+                // Remove active class from all colors in this card
+                this.closest('.color-presets').querySelectorAll('.color-option').forEach(c => {
+                    c.classList.remove('active');
+                });
+                // Add active class to clicked color
+                this.classList.add('active');
+                const colorName = this.getAttribute('title');
+                console.log(`Changed light color to ${colorName}`);
+            });
+        });
+
+        // Mode selects
+        document.querySelectorAll('.mode-select').forEach(select => {
+            select.addEventListener('change', function() {
+                const deviceName = this.closest('.device-card').querySelector('.device-name').textContent.trim();
+                console.log(`${deviceName} mode changed to ${this.value}`);
+            });
+        });
+    </script>
+</body>
+</html>

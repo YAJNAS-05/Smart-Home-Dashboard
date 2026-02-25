@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living Room | ZoneWise</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f4ff;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #6a0dad;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #6a0dad;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ===== ROOM HEADER ===== */
+        .room-header {
+            padding: 2rem 5%;
+            background: linear-gradient(135deg, rgba(106, 13, 173, 0.1) 0%, rgba(233, 213, 255, 0.2) 100%);
+            text-align: center;
+        }
+
+        .room-title {
+            font-size: 2rem;
+            color: #6a0dad;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .room-subtitle {
+            color: #666;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        /* ===== NAVIGATION BAR ===== */
+        nav {
+            display: flex;
+            justify-content: center; /* <-- center the nav */
+            align-items: center;
+        }
+    
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #e6d5ff;
+            color: #6a0dad;
+            font-size: 1.05rem;
+        }
+
+        /* ===== DEVICE GRID ===== */
+        .device-grid {
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .device-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .device-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .device-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .device-icon {
+            color: #6a0dad;
+            font-size: 1.3rem;
+        }
+
+        /* ===== TOGGLE SWITCH ===== */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e0e0e0;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #6a0dad;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* ===== LIGHT CONTROL ===== */
+        .light-control {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .brightness-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brightness-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .brightness-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #6a0dad;
+            cursor: pointer;
+        }
+
+        .color-presets {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.active {
+            border-color: #6a0dad;
+        }
+
+        /* ===== THERMOSTAT CONTROL ===== */
+        .temp-control {
+            text-align: center;
+        }
+
+        .temp-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #6a0dad;
+            margin: 1rem 0;
+        }
+
+        .temp-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .temp-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #6a0dad;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== ENTERTAINMENT SYSTEM ===== */
+        .entertainment-btn {
+            background: #6a0dad;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .entertainment-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .entertainment-btn.off {
+            background: #ff3e3e;
+        }
+
+        .settings-btn {
+            background: #f1f1f1;
+            color: #333;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .settings-btn:hover {
+            background: #ddd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* ===== MEDIA QUERIES ===== */
+        @media (max-width: 768px) {
+            .device-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .room-title {
+                font-size: 1.8rem;
+            }
+            
+            .device-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="home.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+        <div class="logo">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>ZoneWise</span>
+        </div>
+    </header>
+
+    <!-- Room Header -->
+    <div class="room-header">
+        <h1 class="room-title">
+            <i class="fas fa-couch"></i>
+            Living Room
+        </h1>
+        <p class="room-subtitle">Control all your living room devices in one place</p>
+        <br>
+        <nav>
+            <div class="nav-links">
+                    <a href="living_room.html">Living Room</a>
+                    <a href="kitchen.html">Kitchen</a>
+                    <a href="bedroom.html">Bedroom</a>
+                    <a href="bathroom.html">Bathroom</a>
+                    <a href="garden.html">Garden</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Device Grid -->
+    <div class="device-grid">
+        <!-- Main Lights -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-lightbulb device-icon"></i>
+                    Main Lights
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="light-control">
+                <div class="brightness-control">
+                    <i class="fas fa-sun" style="color: #666;"></i>
+                    <input type="range" min="0" max="100" value="75" class="brightness-slider">
+                    <i class="fas fa-sun" style="color: #ffcc00;"></i>
+                </div>
+                <div class="color-presets">
+                    <div class="color-option active" style="background: #ffffff;" title="White"></div>
+                    <div class="color-option" style="background: #ffcc00;" title="Warm White"></div>
+                    <div class="color-option" style="background: #ff3e3e;" title="Red"></div>
+                    <div class="color-option" style="background: #4d88ff;" title="Blue"></div>
+                    <div class="color-option" style="background: #4dff88;" title="Green"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AC Control -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-thermometer-half device-icon"></i>
+                    Air Conditioner
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="temp-control">
+                <div class="temp-display">22°C</div>
+                <div class="temp-buttons">
+                    <button class="temp-btn minus-btn">-</button>
+                    <button class="temp-btn plus-btn">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entertainment System -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-tv device-icon"></i>
+                    Entertainment System
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="entertainment-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div style="margin-top: 1.5rem;">
+                <button class="entertainment-btn power-btn">
+                    <i class="fas fa-play"></i> Power On
+                </button>
+                <button class="settings-btn">
+                    <i class="fas fa-sliders-h"></i> Settings
+                </button>
+            </div>
+        </div>
+
+        <!-- Smart Blinds -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-window-maximize device-icon"></i>
+                    Smart Blinds
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div style="margin-top: 1.5rem;">
+                <input type="range" min="0" max="100" value="40" class="brightness-slider" style="width: 100%;">
+                <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                    <span style="font-size: 0.8rem; color: #666;">Closed</span>
+                    <span style="font-size: 0.8rem; color: #666;">Open</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Speaker System -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-music device-icon"></i>
+                    Speaker System
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div style="margin-top: 1.5rem;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;">
+                    <i class="fas fa-volume-down" style="color: #666;"></i>
+                    <input type="range" min="0" max="100" value="65" class="brightness-slider" style="flex: 1;">
+                    <i class="fas fa-volume-up" style="color: #666;"></i>
+                </div>
+                <select style="width: 100%; padding: 0.7rem; border-radius: 5px; border: 1px solid #ddd;">
+                    <option>Playing: Jazz Playlist</option>
+                    <option>Rock Classics</option>
+                    <option>Morning Relaxation</option>
+                    <option>Podcast - Tech Today</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Ambient Lighting -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-lightbulb device-icon"></i>
+                    Ambient Lighting
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="light-control">
+                <div class="brightness-control">
+                    <i class="fas fa-sun" style="color: #666;"></i>
+                    <input type="range" min="0" max="100" value="30" class="brightness-slider">
+                    <i class="fas fa-sun" style="color: #ffcc00;"></i>
+                </div>
+                <div class="color-presets">
+                    <div class="color-option" style="background: #ff9a00;" title="Sunset"></div>
+                    <div class="color-option active" style="background: #00a2ff;" title="Ocean"></div>
+                    <div class="color-option" style="background: #b300ff;" title="Purple"></div>
+                    <div class="color-option" style="background: #ff0066;" title="Pink"></div>
+                    <div class="color-option" style="background: #00ff88;" title="Mint"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle switches functionality
+        document.querySelectorAll('.toggle-switch input').forEach(switchInput => {
+            switchInput.addEventListener('change', function() {
+                const deviceName = this.closest('.device-card').querySelector('.device-name').textContent.trim();
+                const status = this.checked ? 'ON' : 'OFF';
+                console.log(`${deviceName} turned ${status}`);
+            });
+        });
+
+        // Temperature control
+        const tempDisplay = document.querySelector('.temp-display');
+        const plusBtn = document.querySelector('.plus-btn');
+        const minusBtn = document.querySelector('.minus-btn');
+        
+        let currentTemp = 22;
+        
+        plusBtn.addEventListener('click', () => {
+            if (currentTemp < 30) {
+                currentTemp++;
+                tempDisplay.textContent = currentTemp + '°C';
+            }
+        });
+        
+        minusBtn.addEventListener('click', () => {
+            if (currentTemp > 16) {
+                currentTemp--;
+                tempDisplay.textContent = currentTemp + '°C';
+            }
+        });
+
+        // Color presets selection
+        document.querySelectorAll('.color-option').forEach(color => {
+            color.addEventListener('click', function() {
+                // Remove active class from all colors in this card
+                this.closest('.color-presets').querySelectorAll('.color-option').forEach(c => {
+                    c.classList.remove('active');
+                });
+                // Add active class to clicked color
+                this.classList.add('active');
+                const colorName = this.getAttribute('title');
+                const lightName = this.closest('.device-card').querySelector('.device-name').textContent.trim();
+                console.log(`Changed ${lightName} color to ${colorName}`);
+            });
+        });
+
+        // Brightness sliders
+        document.querySelectorAll('.brightness-slider').forEach(slider => {
+            slider.addEventListener('input', function() {
+                const deviceName = this.closest('.device-card').querySelector('.device-name').textContent.trim();
+                console.log(`Adjusted ${deviceName} brightness to ${this.value}%`);
+            });
+        });
+
+        // Entertainment System Controls
+        const powerBtn = document.querySelector('.power-btn');
+        const settingsBtn = document.querySelector('.settings-btn');
+        const entertainmentSwitch = document.querySelector('#entertainment-switch');
+
+        powerBtn.addEventListener('click', function() {
+            // Toggle the power state
+            entertainmentSwitch.checked = !entertainmentSwitch.checked;
+            entertainmentSwitch.dispatchEvent(new Event('change'));
+            
+            // Update UI based on state
+            if (entertainmentSwitch.checked) {
+                this.innerHTML = '<i class="fas fa-play"></i> Power On';
+                this.classList.remove('off');
+                console.log('Entertainment System powered ON');
+            } else {
+                this.innerHTML = '<i class="fas fa-power-off"></i> Power Off';
+                this.classList.add('off');
+                console.log('Entertainment System powered OFF');
+            }
+        });
+
+        settingsBtn.addEventListener('click', function() {
+            console.log('Opening Entertainment System settings');
+            // In a real app, this would open a settings modal
+            alert('Entertainment System Settings:\n\n- Input Selection\n- Volume Control\n- Display Settings\n- Audio Output');
+        });
+
+        // Sync initial state
+        entertainmentSwitch.addEventListener('change', function() {
+            if (this.checked) {
+                powerBtn.innerHTML = '<i class="fas fa-play"></i> Power On';
+                powerBtn.classList.remove('off');
+            } else {
+                powerBtn.innerHTML = '<i class="fas fa-power-off"></i> Power Off';
+                powerBtn.classList.add('off');
+            }
+        });
+    </script>
+</body>
+</html>

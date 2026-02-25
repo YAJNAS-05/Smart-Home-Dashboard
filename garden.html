@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden | ZoneWise</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f4ff;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #6a0dad;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #6a0dad;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ===== ROOM HEADER ===== */
+        .room-header {
+            padding: 2rem 5%;
+            background: linear-gradient(135deg, rgba(106, 13, 173, 0.1) 0%, rgba(233, 213, 255, 0.2) 100%);
+            text-align: center;
+        }
+
+        .room-title {
+            font-size: 2rem;
+            color: #6a0dad;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .room-subtitle {
+            color: #666;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        /* ===== NAVIGATION BAR ===== */
+        nav {
+            display: flex;
+            justify-content: center; /* <-- center the nav */
+            align-items: center;
+        }
+    
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #e6d5ff;
+            color: #6a0dad;
+            font-size: 1.05rem;
+        }
+
+        /* ===== DEVICE GRID ===== */
+        .device-grid {
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .device-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .device-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .device-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .device-icon {
+            color: #6a0dad;
+            font-size: 1.3rem;
+        }
+
+        /* ===== TOGGLE SWITCH ===== */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e0e0e0;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #6a0dad;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* ===== GARDEN SPECIFIC STYLES ===== */
+        .garden-control {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .control-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brightness-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .brightness-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .brightness-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #6a0dad;
+            cursor: pointer;
+        }
+
+        .brightness-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #6a0dad;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .zone-control {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .zone-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .zone-item:last-child {
+            border-bottom: none;
+        }
+
+        .mode-select {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-top: 1rem;
+        }
+
+        .duration-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .duration-input {
+            flex: 1;
+            padding: 0.7rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .duration-btn {
+            background: #6a0dad;
+            color: white;
+            border: none;
+            padding: 0.7rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .weather-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .weather-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .weather-value {
+            font-weight: bold;
+            color: #6a0dad;
+        }
+
+        /* ===== MEDIA QUERIES ===== */
+        @media (max-width: 768px) {
+            .device-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .room-title {
+                font-size: 1.8rem;
+            }
+            
+            .device-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="home.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+        <div class="logo">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>ZoneWise</span>
+        </div>
+    </header>
+
+    <!-- Room Header -->
+    <div class="room-header">
+        <h1 class="room-title">
+            <i class="fas fa-tree"></i>
+            Garden
+        </h1>
+        <p class="room-subtitle">Manage your outdoor oasis with smart garden controls</p>
+        <br> <nav>
+            <div class="nav-links">
+                    <a href="living_room.html">Living Room</a>
+                    <a href="kitchen.html">Kitchen</a>
+                    <a href="bedroom.html">Bedroom</a>
+                    <a href="bathroom.html">Bathroom</a>
+                    <a href="garden.html">Garden</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Device Grid -->
+    <div class="device-grid">
+        <!-- Irrigation System -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-tint device-icon"></i>
+                    Irrigation System
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="irrigation-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="garden-control">
+                <div class="zone-control">
+                    <div class="zone-item">
+                        <span>Front Lawn</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="zone-item">
+                        <span>Back Garden</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="zone-item">
+                        <span>Vegetable Patch</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="zone-item">
+                        <span>Flower Beds</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <select class="mode-select">
+                    <option>Daily Schedule</option>
+                    <option>Every Other Day</option>
+                    <option>Drought Mode</option>
+                    <option>Manual Control</option>
+                </select>
+                <div class="duration-control">
+                    <input type="number" min="1" max="60" value="15" class="duration-input" placeholder="Minutes">
+                    <button class="duration-btn">Run</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Garden Lights -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-lightbulb device-icon"></i>
+                    Garden Lights
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked id="garden-lights-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="garden-control">
+                <div class="control-row">
+                    <span>Brightness:</span>
+                    <span class="brightness-display" id="garden-lights-brightness">70%</span>
+                </div>
+                <div class="brightness-control">
+                    <i class="fas fa-sun" style="color: #666;"></i>
+                    <input type="range" min="0" max="100" value="70" class="brightness-slider" id="garden-lights-slider">
+                    <i class="fas fa-sun" style="color: #ffcc00;"></i>
+                </div>
+                <select class="mode-select">
+                    <option>Evening Ambiance</option>
+                    <option>Security Lighting</option>
+                    <option>Party Mode</option>
+                    <option>Sunset to Sunrise</option>
+                </select>
+                <div class="control-row" style="margin-top: 1rem;">
+                    <span>Motion Sensor:</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="lights-motion" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weather Station -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-cloud-sun device-icon"></i>
+                    Weather Station
+                </h3>
+                <span style="font-size: 0.9rem; color: #6a0dad;">Online</span>
+            </div>
+            <div class="weather-info">
+                <div class="weather-row">
+                    <span>Temperature:</span>
+                    <span class="weather-value">22°C</span>
+                </div>
+                <div class="weather-row">
+                    <span>Humidity:</span>
+                    <span class="weather-value">65%</span>
+                </div>
+                <div class="weather-row">
+                    <span>Rainfall:</span>
+                    <span class="weather-value">0 mm</span>
+                </div>
+                <div class="weather-row">
+                    <span>Wind Speed:</span>
+                    <span class="weather-value">8 km/h</span>
+                </div>
+                <div class="weather-row">
+                    <span>Forecast:</span>
+                    <span class="weather-value">Sunny</span>
+                </div>
+            </div>
+            <div class="control-row" style="margin-top: 1rem;">
+                <span>Auto Adjust:</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="weather-auto" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Pool Control -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-swimming-pool device-icon"></i>
+                    Pool Control
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked id="pool-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="garden-control">
+                <div class="control-row">
+                    <span>Temperature:</span>
+                    <span class="brightness-display" id="pool-temp">26°C</span>
+                </div>
+                <input type="range" min="15" max="35" value="26" class="brightness-slider" id="pool-slider">
+                <select class="mode-select">
+                    <option>Filter Cycle</option>
+                    <option>Heating Mode</option>
+                    <option>Cleaning Cycle</option>
+                    <option>Winter Mode</option>
+                </select>
+                <div class="control-row" style="margin-top: 1rem;">
+                    <span>Pump Status:</span>
+                    <span class="weather-value">Running</span>
+                </div>
+                <div class="control-row" style="margin-top: 0.5rem;">
+                    <span>Water Quality:</span>
+                    <span class="weather-value">Good</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Outdoor Speakers -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-music device-icon"></i>
+                    Outdoor Speakers
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked id="speakers-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="garden-control">
+                <div class="control-row">
+                    <span>Volume:</span>
+                    <span class="brightness-display" id="speakers-volume">60%</span>
+                </div>
+                <input type="range" min="0" max="100" value="60" class="brightness-slider" id="speakers-slider">
+                <select class="mode-select">
+                    <option>Relaxing Garden</option>
+                    <option>Party Playlist</option>
+                    <option>Morning Birds</option>
+                    <option>Podcast</option>
+                </select>
+                <div class="control-row" style="margin-top: 1rem;">
+                    <span>Zone Control:</span>
+                    <select class="duration-input">
+                        <option>All Zones</option>
+                        <option>Patio Only</option>
+                        <option>Pool Area</option>
+                        <option>Garden Only</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Smart Grill -->
+        <div class="device-card">
+            <div class="device-header">
+                <h3 class="device-name">
+                    <i class="fas fa-utensils device-icon"></i>
+                    Smart Grill
+                </h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="grill-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="garden-control">
+                <div class="control-row">
+                    <span>Temperature:</span>
+                    <span class="brightness-display" id="grill-temp">Off</span>
+                </div>
+                <input type="range" min="0" max="300" value="0" class="brightness-slider" id="grill-slider">
+                <select class="mode-select">
+                    <option>Standard Grilling</option>
+                    <option>Slow Cooking</option>
+                    <option>Smoking</option>
+                    <option>Preheat Only</option>
+                </select>
+                <div class="duration-control" style="margin-top: 1rem;">
+                    <input type="number" min="1" max="240" value="30" class="duration-input" placeholder="Minutes">
+                    <button class="duration-btn">Timer</button>
+                </div>
+                <div class="control-row" style="margin-top: 0.5rem;">
+                    <span>Fuel Level:</span>
+                    <span class="weather-value">85%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle switches functionality
+        document.querySelectorAll('.toggle-switch input').forEach(switchInput => {
+            switchInput.addEventListener('change', function() {
+                const deviceName = this.closest('.device-card').querySelector('.device-name').textContent.trim();
+                const status = this.checked ? 'ON' : 'OFF';
+                console.log(`${deviceName} turned ${status}`);
+                
+                // Special handling for grill
+                if (deviceName === "Smart Grill") {
+                    const grillTemp = document.getElementById('grill-temp');
+                    if (status === 'OFF') {
+                        grillTemp.textContent = "Off";
+                        document.getElementById('grill-slider').value = 0;
+                    } else {
+                        grillTemp.textContent = "200°C";
+                        document.getElementById('grill-slider').value = 200;
+                    }
+                }
+            });
+        });
+
+        // Garden lights controls
+        const gardenLightsSlider = document.getElementById('garden-lights-slider');
+        const gardenLightsBrightness = document.getElementById('garden-lights-brightness');
+        gardenLightsSlider.addEventListener('input', function() {
+            gardenLightsBrightness.textContent = this.value + '%';
+        });
+
+        // Pool controls
+        const poolSlider = document.getElementById('pool-slider');
+        const poolTemp = document.getElementById('pool-temp');
+        poolSlider.addEventListener('input', function() {
+            poolTemp.textContent = this.value + '°C';
+        });
+
+        // Outdoor speakers controls
+        const speakersSlider = document.getElementById('speakers-slider');
+        const speakersVolume = document.getElementById('speakers-volume');
+        speakersSlider.addEventListener('input', function() {
+            speakersVolume.textContent = this.value + '%';
+        });
+
+        // Smart grill controls
+        const grillSlider = document.getElementById('grill-slider');
+        const grillTemp = document.getElementById('grill-temp');
+        grillSlider.addEventListener('input', function() {
+            if (this.value > 0) {
+                grillTemp.textContent = this.value + '°C';
+                document.getElementById('grill-switch').checked = true;
+            } else {
+                grillTemp.textContent = "Off";
+                document.getElementById('grill-switch').checked = false;
+            }
+        });
+
+        // Irrigation zone controls
+        document.querySelectorAll('.zone-control .toggle-switch input').forEach(zoneSwitch => {
+            zoneSwitch.addEventListener('change', function() {
+                const zoneName = this.closest('.zone-item').querySelector('span').textContent;
+                const status = this.checked ? 'ON' : 'OFF';
+                console.log(`Irrigation zone ${zoneName} turned ${status}`);
+            });
+        });
+
+        // Run buttons
+        document.querySelectorAll('.duration-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.previousElementSibling;
+                const deviceName = this.closest('.device-card').querySelector('.device-name').textContent.trim();
+                
+                if (deviceName === "Irrigation System") {
+                    console.log(`Running irrigation for ${input.value} minutes`);
+                    alert(`Irrigation started for ${input.value} minutes`);
+                } else if (deviceName === "Smart Grill") {
+                    console.log(`Grill timer set for ${input.value} minutes`);
+                    alert(`Grill timer set for ${input.value} minutes`);
+                }
+            });
+        });
+
+        // Mode selects
+        document.querySelectorAll('.mode-select').forEach(select => {
+            select.addEventListener('change', function() {
+                const deviceName = this.closest('.device-card').querySelector('.device-name').textContent.trim();
+                console.log(`${deviceName} mode changed to ${this.value}`);
+            });
+        });
+    </script>
+</body>
+</html>
